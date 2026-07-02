@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Go 정석 게시판</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 p-8">
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Go & PostgreSQL 게시판</h1>
+
+    <form action="/web/posts" method="POST" class="mb-8 p-4 bg-gray-50 rounded border border-gray-200">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">새 글 작성</h2>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">제목</label>
+            <input type="text" name="title" required class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm">
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700">내용</label>
+            <textarea name="content" required rows="3" class="mt-1 block w-full p-2 border border-gray-300 rounded shadow-sm"></textarea>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer">등록하기</button>
+    </form>
+
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">게시글 목록</h2>
+    <div class="space-y-4">
+        {{range .posts}}
+        <div class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 flex justify-between items-center">
+            <div>
+                <h3 class="text-lg font-bold text-blue-600">#{{.ID}} {{.Title}}</h3>
+                <p class="text-gray-600 mt-1">{{.Content}}</p>
+                <span class="text-xs text-gray-400 block mt-2">{{.CreatedAt.Format "2006-01-02 15:04:05"}}</span>
+            </div>
+            <div>
+                <a href="/web/posts/delete?id={{.ID}}" class="text-red-500 hover:text-red-700 font-medium">삭제</a>
+            </div>
+        </div>
+        {{else}}
+        <p class="text-gray-500 text-center py-8">등록된 게시글이 없습니다.</p>
+        {{end}}
+    </div>
+</div>
+</body>
+</html>
