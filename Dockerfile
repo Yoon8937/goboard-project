@@ -14,6 +14,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o server ./cmd/server/ma
 
 
 
+
 FROM alpine:3.19
 RUN apk update && apk add --no-cache tzdata ca-certificates
 ENV TZ=Asia/Seoul
