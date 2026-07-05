@@ -6,4 +6,3 @@ COPY dist/server ./server
 COPY templates ./templates
 EXPOSE 8080
 CMD ["./server"]
-
