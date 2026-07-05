@@ -1,0 +1,9 @@
+FROM alpine:3.19
+RUN apk update && apk add --no-cache tzdata ca-certificates
+ENV TZ=Asia/Seoul
+WORKDIR /app
+COPY dist/server ./server
+COPY templates ./templates
+EXPOSE 8080
+CMD ["./server"]
+

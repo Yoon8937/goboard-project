@@ -1,0 +1,20 @@
+require (
+	entgo.io/ent v0.14.1
+	github.com/gofiber/fiber/v3 v3.0.0-beta.4
+)
+
+
+
+import (
+	_ "github.com/gofiber/fiber/v3"
+	_ "entgo.io/ent"
+)
+
+
+
+
+# 1. Go 모듈 초기화
+go mod init my-test-app
+
+# 2. 의존성 자동 분석 및 다운로드 (여기서 go.mod와 go.sum에 생김)
+go mod tidy
