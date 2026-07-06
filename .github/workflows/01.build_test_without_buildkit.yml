@@ -4,7 +4,7 @@ name: 01 Docker Multi Build without Buildkit-cache-dance
 on:
 #  workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["main", "experiment/buildkit-cache-off"]
   pull_request:
     branches: ["main"]
 
