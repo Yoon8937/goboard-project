@@ -1,0 +1,56 @@
+name: Docker Multi Build with Buildkit
+
+
+on:
+  #  workflow_dispatch:
+  push:
+    branches: [ "buildkit-cache-on" ]
+  pull_request:
+    branches: ["main"]
+
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      id: setup-buildxxx
+
+
+    - name: dependencies build cache
+      uses: actions/cache@v4
+      id: cache
+      with:
+        path: | 
+          go-mod-build
+          go-build-cache
+        key: ${{ runner.os }}-go-build-cache-${{ hashFiles('**/go.sum') }}
+        restore-keys: ${{ runner.os }}-go-build-cache- 
+
+
+    - name: Restore Docker cache mounts
+      uses: reproducible-containers/buildkit-cache-dance@v3
+      with:
+        cache-map: |
+          {
+            "go-mod-build" : "/go/pkg/mod", 
+            "go-build-cache" : "go-build-cache"
+          }
+
+
+    - name: Build Dcoker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: false
+        tags: todoproject:latest
+        cache-from: type=gha
+        cache-to: type=gha, mode=max
