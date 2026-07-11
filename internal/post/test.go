@@ -68,3 +68,12 @@ import (
 	_ "oras.land/oras-go/v2"
 	_ "sigs.k8s.io/controller-runtime"
 )
+
+
+
+
+
+import (
+	_ "github.com/gofiber/fiber/v3"
+	_ "entgo.io/ent"
+)
